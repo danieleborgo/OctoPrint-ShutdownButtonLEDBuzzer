@@ -1,0 +1,4 @@
+include README.md
+recursive-include octoprint_shutdownbuttonledbuzzer/templates *
+recursive-include octoprint_shutdownbuttonledbuzzer/translations *
+recursive-include octoprint_shutdownbuttonledbuzzer/static *

@@ -1,0 +1,135 @@
+<form class="form-horizontal">
+    <div class="control-group-header">
+        <h3>ShutdownButtonLEDBuzzer</h3>
+    </div>
+
+    <div class="control-group">
+        Remember to use <b>BCM</b> pins and to check if other services are using them,
+        like, for instance, GPIO21 which is unavailable if SPI is on.
+    </div>
+
+    <div class="control-group-header">
+        <h4>Button setup</h4>
+    </div>
+
+    <div class="control-group">
+        This button adds a hardware shutdown procedure to the Raspberry,
+        and it doesn't require any resistor.
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox"
+                       data-bind="checked: settings.plugins.shutdownbuttonledbuzzer.is_button_en">
+                {{ _("Enable button") }}
+            </label>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">{{ _('Button pin') }}</label>
+        <div class="controls">
+            <label>
+                <input type="text" class="input-block-level center-input"
+                       data-bind="value: settings.plugins.shutdownbuttonledbuzzer.button_pin,
+                                  enable: settings.plugins.shutdownbuttonledbuzzer.is_button_en">
+            </label>
+        </div>
+    </div>
+
+    <div class="control-group-header">
+        <h4>LED setup</h4>
+    </div>
+
+    <div class="control-group">
+        This LED is thought to be an indication of the Raspberry state when it is not possible
+        to check OctoPrint via its web interface. Consequently, if enabled, it is active from
+        the moment the plugin is booted, so when OctoPrint is ready, until the board shutdown
+        completely.
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox"
+                       data-bind="checked: settings.plugins.shutdownbuttonledbuzzer.is_led_en">
+                {{ _("Enable LED") }}
+            </label>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">{{ _('LED pin') }}</label>
+        <div class="controls">
+            <label>
+                <input type="text" class="input-block-level center-input"
+                       data-bind="value: settings.plugins.shutdownbuttonledbuzzer.led_pin,
+                                  enable: settings.plugins.shutdownbuttonledbuzzer.is_led_en">
+            </label>
+        </div>
+    </div>
+
+    <div class="control-group-header">
+        <h4>Buzzer setup</h4>
+    </div>
+
+    <div class="control-group">
+        If buzzer is enabled, this plugin emits the startup sound
+        whenever at least a parameter is modified and saved.
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox"
+                       data-bind="checked: settings.plugins.shutdownbuttonledbuzzer.is_buzzer_en">
+                {{ _("Enable buzzer") }}
+            </label>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">{{ _('Buzzer pin') }}</label>
+        <div class="controls">
+            <label>
+                <input type="text" class="input-block-level center-input"
+                       data-bind="value: settings.plugins.shutdownbuttonledbuzzer.buzzer_pin,
+                                  enable: settings.plugins.shutdownbuttonledbuzzer.is_buzzer_en">
+            </label>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">{{ _('Beep duration (ms)') }}</label>
+        <div class="controls">
+            <label>
+                <input type="text" class="input-block-level center-input"
+                       data-bind="value: settings.plugins.shutdownbuttonledbuzzer.beep_ms,
+                                  enable: settings.plugins.shutdownbuttonledbuzzer.is_buzzer_en">
+            </label>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">{{ _('Beeps number on startup') }}</label>
+        <div class="controls">
+            <label>
+                <input type="text" class="input-block-level center-input"
+                       data-bind="value: settings.plugins.shutdownbuttonledbuzzer.beeps_on_startup,
+                                  enable: settings.plugins.shutdownbuttonledbuzzer.is_buzzer_en">
+            </label>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">{{ _('Beeps number on shutdown') }}</label>
+        <div class="controls">
+            <label>
+                <input type="text" class="input-block-level center-input"
+                       data-bind="value: settings.plugins.shutdownbuttonledbuzzer.beeps_on_shutdown,
+                                  enable: settings.plugins.shutdownbuttonledbuzzer.is_buzzer_en">
+            </label>
+        </div>
+    </div>
+</form>
