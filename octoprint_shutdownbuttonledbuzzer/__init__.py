@@ -1,4 +1,23 @@
 # coding=utf-8
+
+"""
+Copyright (C) 2021 Daniele Borgo
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+"""
+
 from __future__ import absolute_import
 import octoprint.plugin
 from time import sleep
@@ -7,9 +26,9 @@ import os
 
 __plugin_pythoncompat__ = ">=3,<4"  # only python 3
 
-DEFAULT_BUTTON_PIN = 21
-DEFAULT_LED_PIN = 26
-DEFAULT_BUZZER_PIN = 20
+DEFAULT_BUTTON_PIN = 26
+DEFAULT_LED_PIN = 6
+DEFAULT_BUZZER_PIN = 13
 DEFAULT_BEEP_MS = 50
 DEFAULT_BEEPS_ON_STARTUP = 2
 DEFAULT_BEEPS_ON_SHUTDOWN = 3
@@ -143,8 +162,8 @@ class ShutdownButtonLEDBuzzerPlugin(
         # Define your plugin's asset files to automatically include in the
         # core UI here.
         return {
-            # "js": ["js/ShutdownButtonLEDBuzzer.js"],
-            # "less": ["less/ShutdownButtonLEDBuzzer.less"],
+            "js": ["js/ShutdownButtonLEDBuzzer.js"],
+            "less": ["less/ShutdownButtonLEDBuzzer.less"],
             "css": ["css/ShutdownButtonLEDBuzzer.css"]
         }
 

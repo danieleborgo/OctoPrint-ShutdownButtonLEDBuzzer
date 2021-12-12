@@ -5,7 +5,8 @@
 
     <div class="control-group">
         Remember to use <b>BCM</b> pins and to check if other services are using them,
-        like, for instance, GPIO21 which is unavailable if SPI is on.
+        like, for instance, GPIO21 which is unavailable if SPI is on. To be sure, check
+        the Raspberry pinout and pick pins with no other functionalities.
     </div>
 
     <div class="control-group-header">
@@ -14,7 +15,7 @@
 
     <div class="control-group">
         This button adds a hardware shutdown procedure to the Raspberry,
-        and it doesn't require any resistor.
+        without requiring any external resistor.
     </div>
 
     <div class="control-group">
@@ -45,8 +46,8 @@
     <div class="control-group">
         This LED is thought to be an indication of the Raspberry state when it is not possible
         to check OctoPrint via its web interface. Consequently, if enabled, it is active from
-        the moment the plugin is booted, so when OctoPrint is ready, until the board shutdown
-        completely.
+        the moment the plugin is booted, so when OctoPrint is ready, until the board turn off
+        completely the GPIO, which is close to the complete shutdown.
     </div>
 
     <div class="control-group">
@@ -76,7 +77,7 @@
 
     <div class="control-group">
         If buzzer is enabled, this plugin emits the startup sound
-        whenever at least a parameter is modified and saved.
+        whenever at least one parameter is modified and saved.
     </div>
 
     <div class="control-group">

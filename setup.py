@@ -18,7 +18,7 @@ plugin_version = "0.1.0"
 
 # The plugin's description. Can be overwritten within OctoPrint's internal data via __plugin_description__ in the plugin
 # module
-plugin_description = """Manages a button for automatic shutdown with a LED and a Buzzer"""
+plugin_description = """Manages a button for automatic Raspberry shutdown with a LED and a Buzzer"""
 
 # The plugin's author. Can be overwritten within OctoPrint's internal data via __plugin_author__ in the plugin module
 plugin_author = "Daniele Borgo"
@@ -30,7 +30,7 @@ plugin_author_email = "-"
 plugin_url = "https://github.com/danieleborgo/OctoPrint-ShutdownButtonLEDBuzzer"
 
 # The plugin's license. Can be overwritten within OctoPrint's internal data via __plugin_license__ in the plugin module
-plugin_license = "AGPLv3"
+plugin_license = "GPLv3"
 
 # Any additional requirements besides OctoPrint should be listed here
 plugin_requires = ["OctoPrint>=1.7.2", "gpiozero>=1.6.2"]
