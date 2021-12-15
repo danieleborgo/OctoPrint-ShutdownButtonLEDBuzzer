@@ -2,3 +2,22 @@
 .center-input{
     text-align: center;
 }
+
+.padding-top{
+    padding-top: 5px;
+}
+
+.label-enabled{
+    color: #F00;
+    font-weight: bold;
+}
+
+.label-disabled{
+    color: #0AF;
+    font-weight: bold;
+}
+
+.label-undefined{
+    color: #0F0;
+    font-weight: bold;
+}

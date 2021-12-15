@@ -15,14 +15,15 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 """
 
 from __future__ import absolute_import
+import json
 import octoprint.plugin
+import os
+import subprocess
 from time import sleep
 from gpiozero import Button, Buzzer, LED
-import os
 
 __plugin_pythoncompat__ = ">=3,<4"  # only python 3
 
@@ -32,7 +33,13 @@ DEFAULT_BUZZER_PIN = 13
 DEFAULT_BEEP_MS = 50
 DEFAULT_BEEPS_ON_STARTUP = 2
 DEFAULT_BEEPS_ON_SHUTDOWN = 3
+DEFAULT_BEEPS_ON_PRESSED = 1
 DEFAULT_EN = True
+OP_SHUTDOWN_COMMAND = "sudo service octoprint stop"
+PI_SHUTDOWN_COMMAND = "sudo shutdown -h now"
+I2C_STATUS_COMMAND = "raspi-config nonint get_i2c"
+SPI_STATUS_COMMAND = "raspi-config nonint get_spi"
+SERVICE_ENABLE_OUT = "0"
 
 
 class ShutdownButtonLEDBuzzerPlugin(
@@ -40,10 +47,9 @@ class ShutdownButtonLEDBuzzerPlugin(
     octoprint.plugin.AssetPlugin,
     octoprint.plugin.TemplatePlugin,
     octoprint.plugin.StartupPlugin,
-    octoprint.plugin.ShutdownPlugin
+    octoprint.plugin.ShutdownPlugin,
+    octoprint.plugin.SimpleApiPlugin
 ):
-    __OP_SHUTDOWN_COMMAND = "sudo service octoprint stop"
-    __PI_SHUTDOWN_COMMAND = "sudo shutdown -h now"
 
     def __init__(self):
         super().__init__()
@@ -53,6 +59,7 @@ class ShutdownButtonLEDBuzzerPlugin(
         self.__beep_ms = None
         self.__beeps_on_startup = None
         self.__beeps_on_shutdown = None
+        self.__beeps_on_pressed = None
         self.__is_button_en = None,
         self.__is_led_en = None,
         self.__is_buzzer_en = None
@@ -67,12 +74,14 @@ class ShutdownButtonLEDBuzzerPlugin(
         self._logger.info('ShutdownButtonLEDBuzzerPlugin ready')
 
     def __load_settings(self):
+        # Avoid errors in case of memory saved data corruption
         self.__button_pin = self.__pick_not_none_int("button_pin", DEFAULT_BUTTON_PIN)
         self.__led_pin = self.__pick_not_none_int("led_pin", DEFAULT_LED_PIN)
         self.__buzzer_pin = self.__pick_not_none_int("buzzer_pin", DEFAULT_BUZZER_PIN)
         self.__beep_ms = self.__pick_not_none_int("beep_ms", DEFAULT_BEEP_MS)
         self.__beeps_on_startup = self.__pick_not_none_int("beeps_on_startup", DEFAULT_BEEPS_ON_STARTUP)
         self.__beeps_on_shutdown = self.__pick_not_none_int("beeps_on_shutdown", DEFAULT_BEEPS_ON_SHUTDOWN)
+        self.__beeps_on_pressed = self.__pick_not_none_bool("beeps_on_pressed", DEFAULT_BEEPS_ON_PRESSED)
         self.__is_button_en = self.__pick_not_none_bool("is_button_en", DEFAULT_EN)
         self.__is_led_en = self.__pick_not_none_bool("is_led_en", DEFAULT_EN)
         self.__is_buzzer_en = self.__pick_not_none_bool("is_buzzer_en", DEFAULT_EN)
@@ -87,7 +96,7 @@ class ShutdownButtonLEDBuzzerPlugin(
 
     def __setup(self):
         #  Set the button with a pull-up resistor, so it's measurable through a tester
-        self.__close(self.__button)
+        self.__close_component(self.__button)
         if self.__is_button_en:
             self.__button = Button(self.__button_pin, pull_up=True, bounce_time=1)
             self.__button.when_pressed = lambda shutdown: self.__shutdown()
@@ -95,7 +104,7 @@ class ShutdownButtonLEDBuzzerPlugin(
             self.__button = None
 
         #  Set the status LED
-        self.__close(self.__led)
+        self.__close_component(self.__led)
         if self.__is_led_en:
             self.__led = LED(self.__led_pin)
             self.__led.on()
@@ -103,7 +112,7 @@ class ShutdownButtonLEDBuzzerPlugin(
             self.__led = None
 
         #  Set the buzzer
-        self.__close(self.__buzzer)
+        self.__close_component(self.__buzzer)
         if self.__is_buzzer_en:
             self.__buzzer = Buzzer(self.__buzzer_pin)
             self.__emit_beep(self.__beeps_on_startup)
@@ -113,9 +122,9 @@ class ShutdownButtonLEDBuzzerPlugin(
     def __shutdown(self):
         self._logger.info("Shutdown command received")
         sleep(1)
-        self.__emit_beep(self.__beeps_on_shutdown)
-        os.system(ShutdownButtonLEDBuzzerPlugin.__OP_SHUTDOWN_COMMAND)
-        os.system(ShutdownButtonLEDBuzzerPlugin.__PI_SHUTDOWN_COMMAND)
+        self.__emit_beep(self.__beeps_on_pressed)
+        os.system(OP_SHUTDOWN_COMMAND)
+        os.system(PI_SHUTDOWN_COMMAND)
 
     def __emit_beep(self, n: int):
         for i in range(n):
@@ -125,14 +134,15 @@ class ShutdownButtonLEDBuzzerPlugin(
             sleep(self.__beep_ms / 1000.0)
 
     @staticmethod
-    def __close(component):
+    def __close_component(component):
         if component is not None:
             component.close()
 
     def on_shutdown(self):
-        self.__close(self.__button)
-        self.__close(self.__buzzer)
-        # LED is not turned off since it has to indicate the Raspberry shutdown
+        self.__close_component(self.__button)
+        self.__emit_beep(self.__beeps_on_shutdown)
+        self.__close_component(self.__buzzer)
+        # LED is not turned off since it has to indicate the Raspberry GPIO shutdown
         self._logger.info("Plugin closed")
 
     def get_settings_defaults(self):
@@ -143,6 +153,7 @@ class ShutdownButtonLEDBuzzerPlugin(
             beep_ms=DEFAULT_BEEP_MS,
             beeps_on_startup=DEFAULT_BEEPS_ON_STARTUP,
             beeps_on_shutdown=DEFAULT_BEEPS_ON_SHUTDOWN,
+            beeps_on_pressed=DEFAULT_BEEPS_ON_PRESSED,
             is_button_en=DEFAULT_EN,
             is_led_en=DEFAULT_EN,
             is_buzzer_en=DEFAULT_EN
@@ -153,9 +164,32 @@ class ShutdownButtonLEDBuzzerPlugin(
         self.__load_settings()
         self.__setup()
 
+    def on_api_get(self, request):
+        self._logger.info("Refresh request received")
+        return json.dumps({
+            'i2c_status': ShutdownButtonLEDBuzzerPlugin.__get_i2c_status(),
+            'spi_status': ShutdownButtonLEDBuzzerPlugin.__get_spi_status()
+        })
+
+    @staticmethod
+    def __get_i2c_status():
+        return ShutdownButtonLEDBuzzerPlugin.__get_service_status(I2C_STATUS_COMMAND)
+
+    @staticmethod
+    def __get_spi_status():
+        return ShutdownButtonLEDBuzzerPlugin.__get_service_status(SPI_STATUS_COMMAND)
+
+    @staticmethod
+    def __get_service_status(command: str):
+        try:
+            out = subprocess.run(command.split(), capture_output=True).stdout.decode("utf-8").strip()
+            return "enabled" if (out == SERVICE_ENABLE_OUT) else "disabled"
+        except FileNotFoundError:
+            return "undefined"
+
     def get_template_configs(self):
         return [
-            dict(type="settings", custom_bindings=False)
+            #  dict(type="settings", custom_bindings=False)
         ]
 
     def get_assets(self):

@@ -20,6 +20,7 @@ accessible in the apposite OctoPrint section in setting:
 
 ![settings1](docs/settings1.png)
 ![settings2](docs/settings2.png)
+![settings3](docs/settings3.png)
 
 The offered three features can be disabled independently.
 

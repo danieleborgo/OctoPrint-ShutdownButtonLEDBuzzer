@@ -2,8 +2,9 @@
  * View model for OctoPrint-ShutdownButtonLEDBuzzer
  *
  * Author: Daniele Borgo
- * License: AGPLv3
+ * License: GPLv3
  */
+
 $(function() {
     function ShutdownbuttonledbuzzerViewModel(parameters) {
         let self = this;
@@ -14,8 +15,22 @@ $(function() {
 
         // TODO: Implement your plugin's view model here.
 
-        self.onBeforeBinding = function() {
+        self.i2c_status = ko.observable("loading...")
+        self.spi_status = ko.observable("loading...")
 
+        self.refresh = function (){
+            $.get(
+                API_BASEURL + "plugin/shutdownbuttonledbuzzer",
+                function (data) {
+                    let parsed = JSON.parse(data)
+                    self.i2c_status(parsed.i2c_status)
+                    self.spi_status(parsed.spi_status)
+                }
+            )
+        }
+
+        self.onStartupComplete = function () {
+            self.refresh()
         }
     }
 
@@ -28,6 +43,6 @@ $(function() {
         // ViewModels your plugin depends on, e.g. loginStateViewModel, settingsViewModel, ...
         dependencies: [ /* "loginStateViewModel", "settingsViewModel" */ "settingsViewModel"],
         // Elements to bind to, e.g. #settings_plugin_ShutdownButtonLEDBuzzer, #tab_plugin_ShutdownButtonLEDBuzzer, ...
-        elements: [ /* "#settings_plugin_shutdownbuttonledbuzzer" */  ]
+        elements: [ "#settings_plugin_shutdownbuttonledbuzzer"  ]
     });
 });
