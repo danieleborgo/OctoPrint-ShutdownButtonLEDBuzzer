@@ -21,3 +21,12 @@
     color: #0F0;
     font-weight: bold;
 }
+
+.update-label{
+    display: inline;
+    padding-left: 10px;
+}
+
+.update-label span {
+    font-style: italic;
+}
