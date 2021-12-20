@@ -24,15 +24,24 @@ $(function() {
             self.updated_hour("Updating...")
             self.i2c_status("Loading...")
             self.spi_status("Loading...")
-            $.get(
-                API_BASEURL + "plugin/shutdownbuttonledbuzzer",
-                function (data) {
-                    let parsed = JSON.parse(data)
-                    self.i2c_status(parsed.i2c_status)
-                    self.spi_status(parsed.spi_status)
-                    self.set_hour()
-                }
-            )
+
+            $.ajax({
+                url: API_BASEURL + "plugin/shutdownbuttonledbuzzer",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify({
+                    command: "services_status"
+                })
+            }).done(function (data) {
+                self.i2c_status(data.i2c_status)
+                self.spi_status(data.spi_status)
+            }).fail(function () {
+                self.i2c_status("Error in retrieving")
+                self.spi_status("Error in retrieving")
+            }).always(function () {
+                self.set_hour()
+            });
         }
 
         self.onStartupComplete = function () {
