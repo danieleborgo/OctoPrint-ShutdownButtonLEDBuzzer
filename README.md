@@ -13,6 +13,17 @@ or manually using this URL:
     https://github.com/danieleborgo/OctoPrint-ShutdownButtonLEDBuzzer/archive/master.zip
 
 
+## Circuit
+
+- Button: by default directly on pin 26 since pull-up is enabled
+via software.
+- LED: by default on pin 6
+- Buzzer: by default on pin 12
+
+They can be changed in the settings page.
+
+![circuit](docs/circuit.png)
+
 ## Configuration
 
 This plugin offers several configuration parameters,
