@@ -235,7 +235,7 @@ class ShutdownButtonLEDBuzzerPlugin(
         # Plugin here. See https://docs.octoprint.org/en/master/bundledplugins/softwareupdate.html
         # for details.
         return {
-            "ShutdownButtonLEDBuzzer": {
+            "shutdownbuttonledbuzzer": {
                 "displayName": "Shutdownbuttonledbuzzer Plugin",
                 "displayVersion": self._plugin_version,
 
