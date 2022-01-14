@@ -21,7 +21,7 @@ since the plugin allows to edit each of these pin:
 
 - Button: by default directly on pin GPIO26
 - LED: by default on pin GPIO6
-- Buzzer: by default on pin GPIO12
+- Buzzer: by default on pin GPIO13
 
 In case one of these features is not needed, it can be
 deactivated by the apposite settings section.
