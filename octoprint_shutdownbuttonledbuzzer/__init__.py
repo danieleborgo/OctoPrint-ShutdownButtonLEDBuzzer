@@ -21,9 +21,8 @@ from __future__ import absolute_import
 import octoprint.plugin
 import os
 import subprocess
-import RPi.GPIO as GPIO
 from time import sleep
-from gpiozero import Buzzer, LED
+from gpiozero import Button, Buzzer, LED
 from flask import jsonify
 from concurrent.futures import ThreadPoolExecutor
 from threading import Lock
@@ -39,6 +38,7 @@ DEFAULT_BEEPS_ON_SHUTDOWN = 3
 DEFAULT_BEEPS_ON_PRESSED = 2
 DEFAULT_EN = True
 BOUNCING_TIME_MS = 500
+HOLD_TIME_S = 1
 OP_SHUTDOWN_COMMAND = "sudo service octoprint stop"
 PI_SHUTDOWN_COMMAND = "sudo shutdown -h now"
 I2C_STATUS_COMMAND = "raspi-config nonint get_i2c"
@@ -71,6 +71,7 @@ class ShutdownButtonLEDBuzzerPlugin(
         self.__is_buzzer_en = None
 
         #  Plugin data
+        self.__button = None
         self.__led = None
         self.__buzzer = None
         self.__beep_thread_pool = ThreadPoolExecutor(max_workers=1)
@@ -104,15 +105,12 @@ class ShutdownButtonLEDBuzzerPlugin(
 
     def __setup(self):
         #  Set the button with a pull-up resistor, so it's measurable through a tester
-        GPIO.setmode(GPIO.BCM)
-        self.__close_button()
+        self.__close_component(self.__button)
         if self.__is_button_en:
-            GPIO.setup(self.__button_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-            GPIO.add_event_detect(
-                self.__button_pin,
-                GPIO.FALLING,
-                callback=lambda param: self.__shutdown_for_button()
-            )
+            self.__button = Button(self.__button_pin, hold_time=HOLD_TIME_S)
+            self.__button.when_pressed = lambda: self.__shutdown_for_button()
+        else:
+            self.__button = None
 
         #  Set the status LED
         self.__close_component(self.__led)
@@ -156,12 +154,9 @@ class ShutdownButtonLEDBuzzerPlugin(
         if component is not None:
             component.close()
 
-    def __close_button(self):
-        GPIO.remove_event_detect(self.__button_pin)
-
     def on_shutdown(self):
         self.__beep_thread_pool.shutdown(wait=False)
-        self.__close_button()
+        self.__close_component(self.__button)
         # LED is not turned off since it has to indicate the Raspberry GPIO shutdown
         self.__emit_beep_for_pool(self.__beeps_on_shutdown)
         self.__close_component(self.__buzzer)
