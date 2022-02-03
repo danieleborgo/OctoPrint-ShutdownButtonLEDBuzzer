@@ -20,11 +20,14 @@ $(function() {
         let self = this;
 
         self.settingsViewModel = parameters[0];
+        self.shutdownButtonLEDBuzzer = undefined;
+        self.onBeforeBinding = function () {
+            self.shutdownButtonLEDBuzzer = self.settingsViewModel.settings.plugins.shutdownbuttonledbuzzer;
+        };
 
         self.i2c_status = ko.observable("_");
         self.spi_status = ko.observable("-");
         self.updated_hour = ko.observable("-");
-
         self.set_hour = function (){
             let date = new Date($.now());
             self.updated_hour(date.toLocaleDateString() + " " + date.toLocaleTimeString());
@@ -54,7 +57,13 @@ $(function() {
             });
         }
 
+        self.buzzer_type = ko.observable();
         self.onStartupComplete = function () {
+            self.buzzer_type(self.shutdownButtonLEDBuzzer.is_buzzer_active()? "Active" : "Passive");
+            self.buzzer_type.subscribe(function (new_value) {
+                self.shutdownButtonLEDBuzzer.is_buzzer_active(new_value === "Active");
+            });
+
             self.refresh();
         }
     }

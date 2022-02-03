@@ -23,7 +23,7 @@
         <div class="controls">
             <label class="checkbox">
                 <input type="checkbox"
-                       data-bind="checked: settingsViewModel.settings.plugins.shutdownbuttonledbuzzer.is_button_en">
+                       data-bind="checked: shutdownButtonLEDBuzzer.is_button_en">
                 {{ _("Enable button") }}
             </label>
         </div>
@@ -34,8 +34,8 @@
         <div class="controls">
             <label>
                 <input type="number" class="input-block-level center-input"
-                       data-bind="value: settingsViewModel.settings.plugins.shutdownbuttonledbuzzer.button_pin,
-                                  enable: settingsViewModel.settings.plugins.shutdownbuttonledbuzzer.is_button_en"
+                       data-bind="value: shutdownButtonLEDBuzzer.button_pin,
+                                  enable: shutdownButtonLEDBuzzer.is_button_en"
                        style="text-align: center">
             </label>
         </div>
@@ -56,7 +56,7 @@
         <div class="controls">
             <label class="checkbox">
                 <input type="checkbox"
-                       data-bind="checked: settingsViewModel.settings.plugins.shutdownbuttonledbuzzer.is_led_en">
+                       data-bind="checked: shutdownButtonLEDBuzzer.is_led_en">
                 {{ _("Enable LED") }}
             </label>
         </div>
@@ -67,8 +67,8 @@
         <div class="controls">
             <label>
                 <input type="number" class="input-block-level center-input"
-                       data-bind="value: settingsViewModel.settings.plugins.shutdownbuttonledbuzzer.led_pin,
-                                  enable: settingsViewModel.settings.plugins.shutdownbuttonledbuzzer.is_led_en"
+                       data-bind="value: shutdownButtonLEDBuzzer.led_pin,
+                                  enable: shutdownButtonLEDBuzzer.is_led_en"
                        style="text-align: center">
             </label>
         </div>
@@ -87,8 +87,38 @@
         <div class="controls">
             <label class="checkbox">
                 <input type="checkbox"
-                       data-bind="checked: settingsViewModel.settings.plugins.shutdownbuttonledbuzzer.is_buzzer_en">
+                       data-bind="checked: shutdownButtonLEDBuzzer.is_buzzer_en">
                 {{ _("Enable buzzer") }}
+            </label>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">Buzzer type</label>
+        <div class="controls">
+            <label class="text">
+                <select style="text-align: center"
+                        data-bind="enable: shutdownButtonLEDBuzzer.is_buzzer_en,
+                                   value: buzzer_type">
+                    <option>Active</option>
+                    <option>Passive</option>
+                </select><br>
+                If set to <i>disabled</i> the plugin won't use RTC to restore
+                hour anymore. <br>
+                Always check the connections before powering on.
+            </label>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">{{ _('Buzzer MIDI note (for passive)') }}</label>
+        <div class="controls">
+            <label>
+                <input type="number" min="35" max="107" class="input-block-level center-input"
+                       data-bind="value: shutdownButtonLEDBuzzer.active_note,
+                                  enable: shutdownButtonLEDBuzzer.is_buzzer_en() &&
+                                          !shutdownButtonLEDBuzzer.is_buzzer_active()"
+                       style="text-align: center">
             </label>
         </div>
     </div>
@@ -98,8 +128,8 @@
         <div class="controls">
             <label>
                 <input type="number" class="input-block-level center-input"
-                       data-bind="value: settingsViewModel.settings.plugins.shutdownbuttonledbuzzer.buzzer_pin,
-                                  enable: settingsViewModel.settings.plugins.shutdownbuttonledbuzzer.is_buzzer_en"
+                       data-bind="value: shutdownButtonLEDBuzzer.buzzer_pin,
+                                  enable: shutdownButtonLEDBuzzer.is_buzzer_en"
                        style="text-align: center">
             </label>
         </div>
@@ -110,8 +140,8 @@
         <div class="controls">
             <label>
                 <input type="number" class="input-block-level center-input"
-                       data-bind="value: settingsViewModel.settings.plugins.shutdownbuttonledbuzzer.beep_ms,
-                                  enable: settingsViewModel.settings.plugins.shutdownbuttonledbuzzer.is_buzzer_en"
+                       data-bind="value: shutdownButtonLEDBuzzer.beep_ms,
+                                  enable: shutdownButtonLEDBuzzer.is_buzzer_en"
                        style="text-align: center">
             </label>
         </div>
@@ -122,8 +152,8 @@
         <div class="controls">
             <label>
                 <input type="number" class="input-block-level center-input"
-                       data-bind="value: settingsViewModel.settings.plugins.shutdownbuttonledbuzzer.beeps_on_startup,
-                                  enable: settingsViewModel.settings.plugins.shutdownbuttonledbuzzer.is_buzzer_en"
+                       data-bind="value: shutdownButtonLEDBuzzer.beeps_on_startup,
+                                  enable: shutdownButtonLEDBuzzer.is_buzzer_en"
                        style="text-align: center">
             </label>
         </div>
@@ -134,8 +164,8 @@
         <div class="controls">
             <label>
                 <input type="number" class="input-block-level center-input"
-                       data-bind="value: settingsViewModel.settings.plugins.shutdownbuttonledbuzzer.beeps_on_pressed,
-                                  enable: settingsViewModel.settings.plugins.shutdownbuttonledbuzzer.is_buzzer_en"
+                       data-bind="value: shutdownButtonLEDBuzzer.beeps_on_pressed,
+                                  enable: shutdownButtonLEDBuzzer.is_buzzer_en"
                        style="text-align: center">
             </label>
         </div>
@@ -146,8 +176,8 @@
         <div class="controls">
             <label>
                 <input type="number" class="input-block-level center-input"
-                       data-bind="value: settingsViewModel.settings.plugins.shutdownbuttonledbuzzer.beeps_on_shutdown,
-                                  enable: settingsViewModel.settings.plugins.shutdownbuttonledbuzzer.is_buzzer_en"
+                       data-bind="value: shutdownButtonLEDBuzzer.beeps_on_shutdown,
+                                  enable: shutdownButtonLEDBuzzer.is_buzzer_en"
                        style="text-align: center">
             </label>
         </div>
