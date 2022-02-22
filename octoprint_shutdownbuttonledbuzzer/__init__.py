@@ -53,7 +53,7 @@ class ShutdownButtonLEDBuzzerPlugin(
     HOLD_TIME_S = 1
     MID_TONE = "B4"  # Client input max and min values depend on this
     OCTAVES = 3  # Client input max and min values depend on this
-    PI_SHUTDOWN_COMMAND = "shutdown -h now"
+    PI_SHUTDOWN_COMMAND = "sudo shutdown -h now"
     I2C_STATUS_COMMAND = "raspi-config nonint get_i2c"
     SPI_STATUS_COMMAND = "raspi-config nonint get_spi"
     SERVICE_ENABLED_OUTPUT = "0"
