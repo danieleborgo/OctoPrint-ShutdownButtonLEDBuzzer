@@ -139,7 +139,11 @@ class ShutdownButtonLEDBuzzerPlugin(
         self._logger.info("Shutdown command received")
         sleep(ShutdownButtonLEDBuzzerPlugin.BOUNCING_TIME_MS / 1000)
         self.__emit_beep(self.__beeps_on_pressed)
-        os.system(ShutdownButtonLEDBuzzerPlugin.PI_SHUTDOWN_COMMAND)
+        os.system(self.__get_shutdown_command())
+        #  No lock release needed
+
+    def __get_shutdown_command(self):
+            return self._settings.global_get(["server", "commands", "systemShutdownCommand"])
         #  No lock release needed
 
     def __emit_beep(self, n: int):
