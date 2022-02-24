@@ -53,7 +53,6 @@ class ShutdownButtonLEDBuzzerPlugin(
     HOLD_TIME_S = 1
     MID_TONE = "B4"  # Client input max and min values depend on this
     OCTAVES = 3  # Client input max and min values depend on this
-    PI_SHUTDOWN_COMMAND = "shutdown -h now"
     I2C_STATUS_COMMAND = "raspi-config nonint get_i2c"
     SPI_STATUS_COMMAND = "raspi-config nonint get_spi"
     SERVICE_ENABLED_OUTPUT = "0"
@@ -140,8 +139,11 @@ class ShutdownButtonLEDBuzzerPlugin(
         self._logger.info("Shutdown command received")
         sleep(ShutdownButtonLEDBuzzerPlugin.BOUNCING_TIME_MS / 1000)
         self.__emit_beep(self.__beeps_on_pressed)
-        os.system(ShutdownButtonLEDBuzzerPlugin.PI_SHUTDOWN_COMMAND)
+        os.system(self.__get_shutdown_command())
         #  No lock release needed
+
+    def __get_shutdown_command(self):
+        return self._settings.global_get(["server", "commands", "systemShutdownCommand"])
 
     def __emit_beep(self, n: int):
         if self.__is_buzzer_en:

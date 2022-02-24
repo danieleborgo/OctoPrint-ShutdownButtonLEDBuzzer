@@ -16,7 +16,8 @@
 
     <div class="control-group">
         This button adds a hardware shutdown procedure to the Raspberry,
-        without requiring any external resistor.
+        without requiring any external resistor. <b>Remember to configure
+        the shutdown command in the apposite section</b>.
     </div>
 
     <div class="control-group">
@@ -46,10 +47,8 @@
     </div>
 
     <div class="control-group">
-        This LED is thought to be an indication of the Raspberry state when it is not possible
-        to check OctoPrint via its web interface. Consequently, if enabled, it is active from
-        the moment the plugin is booted, so when OctoPrint is ready, until the board turn off
-        completely the GPIO, which is close to the complete shutdown.
+        This LED is active since the plugin's startup process is completed
+        until the GPIO is shutdown.
     </div>
 
     <div class="control-group">

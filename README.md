@@ -6,6 +6,11 @@ OctoPrint is ready and a buzzer to signal the startup and
 the shutdown. Remember that these signals may vary of few
 seconds.
 
+## Notes
+
+To shut down the Raspberry, it uses the command configured in
+OctoPrint settings.
+
 This plugin supports both active and passive buzzers. By default,
 it assumes to have an active one.
 
