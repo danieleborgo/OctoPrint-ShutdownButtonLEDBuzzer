@@ -6,6 +6,10 @@ OctoPrint is ready and a buzzer to signal the startup and
 the shutdown. Remember that these signals may vary of few
 seconds.
 
+By default, this plugin shuts down the Raspberry without
+checking of there are ongoing jobs. In settings, there is
+a flag to disable the button when printing.
+
 ## Notes
 
 To shut down the Raspberry, it uses the command configured in

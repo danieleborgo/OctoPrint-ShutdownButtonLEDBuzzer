@@ -4,10 +4,10 @@
     </div>
 
     <div class="control-group">
-        Remember to use <b>BCM</b> pins and to check if other services are using them,
-        like, for instance, GPIO21 which is unavailable if SPI is on. To be sure, check
-        the Raspberry pinout and pick pins with no other functionalities otherwise ensure
-        I2C or SPI are not using the chosen pin through the last page section.
+        This plugin uses <B>BCM</B> pins. <BR>
+        To know more data about pins check
+        <a href="https://plugins.octoprint.org/plugins/gpiostatus/" target="_blank">
+        this plugin</a>.
     </div>
 
     <div class="control-group-header">
@@ -17,7 +17,7 @@
     <div class="control-group">
         This button adds a hardware shutdown procedure to the Raspberry,
         without requiring any external resistor. <b>Remember to configure
-        the shutdown command in the apposite section</b>.
+        the shutdown command in the apposite OctoPrint section</b>.
     </div>
 
     <div class="control-group">
@@ -42,13 +42,24 @@
         </div>
     </div>
 
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox"
+                       data-bind="checked: shutdownButtonLEDBuzzer.is_disabled_in_print,
+                                  enable: shutdownButtonLEDBuzzer.is_button_en">
+                {{ _("Disable button during printing") }}
+            </label>
+        </div>
+    </div>
+
     <div class="control-group-header">
         <h4>LED setup</h4>
     </div>
 
     <div class="control-group">
         This LED is active since the plugin's startup process is completed
-        until the GPIO is shutdown.
+        until <B>the GPIO</B>, not the board, is shut down.
     </div>
 
     <div class="control-group">
@@ -101,10 +112,7 @@
                                    value: buzzer_type">
                     <option>Active</option>
                     <option>Passive</option>
-                </select><br>
-                If set to <i>disabled</i> the plugin won't use RTC to restore
-                hour anymore. <br>
-                Always check the connections before powering on.
+                </select>
             </label>
         </div>
     </div>

@@ -21,6 +21,7 @@ from __future__ import absolute_import
 import octoprint.plugin
 import os
 import subprocess
+from octoprint.events import Events
 from time import sleep
 from gpiozero import Button, Buzzer, LED, TonalBuzzer, tones
 from gpiozero.tones import Tone
@@ -37,12 +38,14 @@ class ShutdownButtonLEDBuzzerPlugin(
     octoprint.plugin.TemplatePlugin,
     octoprint.plugin.StartupPlugin,
     octoprint.plugin.ShutdownPlugin,
-    octoprint.plugin.SimpleApiPlugin
+    octoprint.plugin.SimpleApiPlugin,
+    octoprint.plugin.EventHandlerPlugin
 ):
     DEFAULT_BUTTON_PIN = 26
     DEFAULT_LED_PIN = 6
     DEFAULT_BUZZER_PIN = 13
     DEFAULT_BEEP_MS = 50
+    DEFAULT_DISABLED_IN_PRINT = False
     DEFAULT_IS_BUZZER_ACTIVE = True
     DEFAULT_BEEPS_ON_STARTUP = 2
     DEFAULT_BEEPS_ON_SHUTDOWN = 3
@@ -65,6 +68,7 @@ class ShutdownButtonLEDBuzzerPlugin(
         self.__led_pin = None
         self.__buzzer_pin = None
         self.__beep_ms = None
+        self.__is_disabled_in_print = None
         self.__is_buzzer_active = None
         self.__beeps_on_startup = None
         self.__beeps_on_shutdown = None
@@ -80,17 +84,28 @@ class ShutdownButtonLEDBuzzerPlugin(
         self.__buzzer = None
         self.__beep_thread_pool = ThreadPoolExecutor(max_workers=1)
         self.__shutdown_lock = Lock()
+        self.__is_printing = False
 
     def on_after_startup(self):
         self.__load_settings()
         self.__setup()
         self._logger.info('Plugin ready')
 
+    def on_event(self, event, payload):
+        if event == Events.PRINT_STARTED:
+            self.__is_printing = True
+            return
+
+        if event in (Events.PRINT_DONE, Events.PRINT_CANCELLED, Events.PRINT_FAILED):
+            self.__is_printing = False
+            return
+
     def __load_settings(self):
         self.__button_pin = self._settings.get_int(["button_pin"])
         self.__led_pin = self._settings.get_int(["led_pin"])
         self.__buzzer_pin = self._settings.get_int(["buzzer_pin"])
         self.__beep_ms = self._settings.get_int(["beep_ms"])
+        self.__is_disabled_in_print = self._settings.get_boolean(["is_disabled_in_print"])
         self.__is_buzzer_active = self._settings.get_boolean(["is_buzzer_active"])
         self.__beeps_on_startup = self._settings.get_int(["beeps_on_startup"])
         self.__beeps_on_shutdown = self._settings.get_int(["beeps_on_shutdown"])
@@ -133,21 +148,28 @@ class ShutdownButtonLEDBuzzerPlugin(
             self.__buzzer = None
 
     def __shutdown_for_button(self):
+        self.__beep_thread_pool.submit(self.__shutdown_for_pool)
+
+    def __shutdown_for_pool(self):
         if not self.__shutdown_lock.acquire(blocking=False):
+            return
+
+        if self.__is_disabled_in_print and self.__is_printing:
+            self._logger.info("Shutdown command stopped due to printing")
+            self.__shutdown_lock.release()
             return
 
         self._logger.info("Shutdown command received")
         sleep(ShutdownButtonLEDBuzzerPlugin.BOUNCING_TIME_MS / 1000)
         self.__emit_beep(self.__beeps_on_pressed)
         os.system(self.__get_shutdown_command())
-        #  No lock release needed
+        # No lock release needed
 
     def __get_shutdown_command(self):
-            return self._settings.global_get(["server", "commands", "systemShutdownCommand"])
-        #  No lock release needed
+        return self._settings.global_get(["server", "commands", "systemShutdownCommand"])
 
     def __emit_beep(self, n: int):
-        if self.__is_buzzer_en:
+        if self.__is_buzzer_en and n > 0:
             self.__beep_thread_pool.submit(
                 self.__emit_active_beep_for_pool if self.__is_buzzer_active else
                 self.__emit_passive_beep_for_pool,
@@ -188,6 +210,7 @@ class ShutdownButtonLEDBuzzerPlugin(
     def get_settings_defaults(self):
         return dict(
             button_pin=ShutdownButtonLEDBuzzerPlugin.DEFAULT_BUTTON_PIN,
+            is_disabled_in_print=ShutdownButtonLEDBuzzerPlugin.DEFAULT_DISABLED_IN_PRINT,
             buzzer_pin=ShutdownButtonLEDBuzzerPlugin.DEFAULT_BUZZER_PIN,
             is_buzzer_active=ShutdownButtonLEDBuzzerPlugin.DEFAULT_IS_BUZZER_ACTIVE,
             led_pin=ShutdownButtonLEDBuzzerPlugin.DEFAULT_LED_PIN,
