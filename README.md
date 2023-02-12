@@ -56,7 +56,11 @@ accessible in the apposite OctoPrint section in setting:
 
 ## PCB
 
+There are KiCad PCB files available in case you want to make your own PCB.
+A bill of materials (BOM) can be found in the according folder.
 
+![pcb1](docs/pcb1.png)
+![pcb2](docs/pcb2.png)
 
 ## FAQ
 

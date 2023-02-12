@@ -2,14 +2,14 @@ BOM PCB ShutdownButtonLEDBuzzer;;;;;
 ;;;;;
 ;;;;;
 Amount;Description;Single price;Price;Link;Position
-1;VIS 3590 12 mm Magnetischer Buzzer;2,25 €; 2,25 € ;Link;BZ1
-1;Widerstand 10 Ohm;0,15 €; 0,15 € ;Link;R1
-1;LED grün;0,08 €; 0,08 € ;Link;D1
-1;MPE 087-1-002 Stiftleisten 2,54 mm, 1X02, gerade;0,06 €; 0,06 € ;Link;J1
-1;JUMPER 2,54 SW Kurzschlussbrücke, schwarz, RM 2,54;0,03 €; 0,03 € ;Link;J1
-1;TASTER 3301B Kurzhubtaster 6x6mm, Höhe: 9,5mm, 12V, vertikal;0,20 €; 0,20 € ;Link;SW1
-1;PSK 254/5W Kupplungs-Leergehäuse, Crimptechnik, 5-polig;0,03 €; 0,03 € ;Link;J2
-1;PSS 254/5G Printstecker, Einzelstecker, gerade, 5-polig;0,09 €; 0,09 € ;Link;J2
-1;PSK-KONTAKTE Crimpkontakte für psk 254;0,24 €; 0,24 € ;Link;
-1;BL 1X10G8 2,54 10pol. Buchsenleiste, gerade, RM 2,54, H: 8,5mm;0,22 €; 0,22 € ;Link;J2
+1;VIS 3590 12 mm Magnetischer Buzzer;2,25 €; 2,25 € ;https://www.reichelt.de/12-mm-magnetischer-buzzer-vis-3590-p248314.html?&trstct=pos_7&nbc=1;BZ1
+1;Widerstand 10 Ohm;0,15 €; 0,15 € ;https://www.reichelt.de/widerstand-metalloxyd-10-ohm-0207-1-0-w-5--1w-10-p1776.html?&trstct=pos_4&nbc=1;R1
+1;LED grün;0,08 €; 0,08 € ;https://www.reichelt.de/led-5-mm-bedrahtet-gruen-fr-led-5-gr-dif-p230932.html?&trstct=pos_6&nbc=1;D1
+1;MPE 087-1-002 Stiftleisten 2,54 mm, 1X02, gerade;0,06 €; 0,06 € ;https://www.reichelt.de/stiftleisten-2-54-mm-1x02-gerade-mpe-087-1-002-p119879.html?&trstct=pol_12&nbc=1;J1
+1;JUMPER 2,54 SW Kurzschlussbrücke, schwarz, RM 2,54;0,03 €; 0,03 € ;https://www.reichelt.de/kurzschlussbruecke-schwarz-rm-2-54-jumper-2-54-sw-p9017.html?&trstct=pol_5&nbc=1;J1
+1;TASTER 3301B Kurzhubtaster 6x6mm, Höhe: 9,5mm, 12V, vertikal;0,20 €; 0,20 € ;https://www.reichelt.de/kurzhubtaster-6x6mm-hoehe-4-3mm-12v-vertikal-taster-3301-p27892.html?&trstct=pos_6&nbc=1;SW1
+1;PSK 254/5W Kupplungs-Leergehäuse, Crimptechnik, 5-polig;0,03 €; 0,03 € ;https://www.reichelt.de/kupplungs-leergehaeuse-crimptechnik-5-polig-psk-254-5w-p14859.html?&trstct=pos_5&nbc=1;J2
+1;PSS 254/5G Printstecker, Einzelstecker, gerade, 5-polig;0,09 €; 0,09 € ;https://www.reichelt.de/printstecker-einzelstecker-gerade-5-polig-pss-254-5g-p14911.html?&trstct=pos_2&nbc=1;J2
+1;PSK-KONTAKTE Crimpkontakte für psk 254;0,24 €; 0,24 € ;https://www.reichelt.de/crimpkontakte-fuer-psk-254--20-stueck-psk-kontakte-p14861.html?&trstct=pos_2&nbc=1;
+1;BL 1X10G8 2,54 10pol. Buchsenleiste, gerade, RM 2,54, H: 8,5mm;0,22 €; 0,22 € ;https://www.reichelt.de/10pol-buchsenleiste-gerade-rm-2-54-h-8-5mm-bl-1x10g8-2-54-p51826.html?&trstct=pol_5&nbc=1;J2
 ;;SUM; 3,35 € ;;
