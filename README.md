@@ -54,6 +54,10 @@ accessible in the apposite OctoPrint section in setting:
 ![settings2](docs/settings2.png)
 ![settings3](docs/settings3.png)
 
+## PCB
+
+
+
 ## FAQ
 
 #### _What resistor does it need to use?_ 
