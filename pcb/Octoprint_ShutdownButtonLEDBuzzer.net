@@ -1,0 +1,679 @@
+(export 
+  (version D) 
+  (design 
+    (source D:\Dokumente\Projekte\3D-Drucker-Platinen\3D-Drucker-Platine_V01\3D-Drucker-Platine_V01.sch) 
+    (date "26.04.2022 21:57:31") 
+    (tool "Eeschema (5.1.9)-1") 
+    (sheet 
+      (number 1) 
+      (name /) 
+      (tstamps /) 
+      (title_block 
+        (title) 
+        (company) 
+        (rev) 
+        (date) 
+        (source Octoprint_ShutdownButtonLEDBuzzer.sch) 
+        (comment 
+          (number 1) 
+          (value "")) 
+        (comment 
+          (number 2) 
+          (value "")) 
+        (comment 
+          (number 3) 
+          (value "")) 
+        (comment 
+          (number 4) 
+          (value ""))))) 
+  (components 
+    (comp 
+      (ref J2) 
+      (value Conn_01x05_Male) 
+      (footprint Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical) 
+      (datasheet ~) 
+      (libsource 
+        (lib Connector) 
+        (part Conn_01x05_Male) 
+        (description "Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)")) 
+      (sheetpath 
+        (names /) 
+        (tstamps /)) 
+      (tstamp 626710EC)) 
+    (comp 
+      (ref SW1) 
+      (value SW) 
+      (footprint Button_Switch_THT:SW_Tactile_Straight_KSA0Axx1LFTR) 
+      (datasheet ~) 
+      (libsource 
+        (lib Switch) 
+        (part SW_Push) 
+        (description "Push button switch, generic, two pins")) 
+      (sheetpath 
+        (names /) 
+        (tstamps /)) 
+      (tstamp 6267282C)) 
+    (comp 
+      (ref BZ1) 
+      (value Buzzer) 
+      (footprint Buzzer_Beeper:Buzzer_12x9.5RM7.6) 
+      (datasheet ~) 
+      (libsource 
+        (lib Device) 
+        (part Buzzer) 
+        (description "Buzzer, polarized")) 
+      (sheetpath 
+        (names /) 
+        (tstamps /)) 
+      (tstamp 6267317D)) 
+    (comp 
+      (ref D1) 
+      (value LED) 
+      (footprint LED_THT:LED_D5.0mm) 
+      (datasheet ~) 
+      (libsource 
+        (lib Device) 
+        (part LED) 
+        (description "Light emitting diode")) 
+      (sheetpath 
+        (names /) 
+        (tstamps /)) 
+      (tstamp 62673A6E)) 
+    (comp 
+      (ref R1) 
+      (value 10) 
+      (footprint Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal) 
+      (datasheet ~) 
+      (libsource 
+        (lib Device) 
+        (part R) 
+        (description Resistor)) 
+      (sheetpath 
+        (names /) 
+        (tstamps /)) 
+      (tstamp 62674532)) 
+    (comp 
+      (ref J1) 
+      (value Jumper) 
+      (footprint Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical) 
+      (datasheet ~) 
+      (libsource 
+        (lib Connector) 
+        (part Conn_01x02_Male) 
+        (description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")) 
+      (sheetpath 
+        (names /) 
+        (tstamps /)) 
+      (tstamp 6267E43B)) 
+    (comp 
+      (ref J3) 
+      (value Screw_Terminal_01x02) 
+      (footprint TerminalBlock:TerminalBlock_bornier-2_P5.08mm) 
+      (datasheet ~) 
+      (libsource 
+        (lib Connector) 
+        (part Screw_Terminal_01x02) 
+        (description "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")) 
+      (sheetpath 
+        (names /) 
+        (tstamps /)) 
+      (tstamp 62684E19)) 
+    (comp 
+      (ref J4) 
+      (value Step-Down_Conv) 
+      (footprint 3D-Drucker-Platine_V01_Library:Step-Down-Module_LM2596) 
+      (datasheet ~) 
+      (libsource 
+        (lib Connector) 
+        (part Conn_01x04_Male) 
+        (description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")) 
+      (sheetpath 
+        (names /) 
+        (tstamps /)) 
+      (tstamp 62689044)) 
+    (comp 
+      (ref SW2) 
+      (value SW_ALL) 
+      (footprint Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical) 
+      (datasheet ~) 
+      (libsource 
+        (lib Switch) 
+        (part SW_DIP_x01) 
+        (description "1x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol")) 
+      (sheetpath 
+        (names /) 
+        (tstamps /)) 
+      (tstamp 6268EEF0)) 
+    (comp 
+      (ref F1) 
+      (value Fuse) 
+      (footprint Fuse:Fuseholder_Cylinder-5x20mm_Stelvio-Kontek_PTF78_Horizontal_Open) 
+      (datasheet ~) 
+      (libsource 
+        (lib Device) 
+        (part Fuse) 
+        (description Fuse)) 
+      (sheetpath 
+        (names /) 
+        (tstamps /)) 
+      (tstamp 6269BA8E)) 
+    (comp 
+      (ref J6) 
+      (value Output3_12V) 
+      (footprint Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical) 
+      (datasheet ~) 
+      (libsource 
+        (lib Connector) 
+        (part Conn_01x02_Male) 
+        (description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")) 
+      (sheetpath 
+        (names /) 
+        (tstamps /)) 
+      (tstamp 626A0CFE)) 
+    (comp 
+      (ref J5) 
+      (value Output1_24V) 
+      (footprint Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical) 
+      (datasheet ~) 
+      (libsource 
+        (lib Connector) 
+        (part Conn_01x02_Male) 
+        (description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")) 
+      (sheetpath 
+        (names /) 
+        (tstamps /)) 
+      (tstamp 6269EB22)) 
+    (comp 
+      (ref J7) 
+      (value Output2_24V) 
+      (footprint Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical) 
+      (datasheet ~) 
+      (libsource 
+        (lib Connector) 
+        (part Conn_01x02_Male) 
+        (description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")) 
+      (sheetpath 
+        (names /) 
+        (tstamps /)) 
+      (tstamp 626DEABA)) 
+    (comp 
+      (ref J8) 
+      (value Output4_12V) 
+      (footprint Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical) 
+      (datasheet ~) 
+      (libsource 
+        (lib Connector) 
+        (part Conn_01x02_Male) 
+        (description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")) 
+      (sheetpath 
+        (names /) 
+        (tstamps /)) 
+      (tstamp 626ECBBF)) 
+    (comp 
+      (ref SW3) 
+      (value SW_DIP_x04) 
+      (footprint Button_Switch_THT:SW_DIP_SPSTx04_Piano_CTS_Series194-4MSTN_W7.62mm_P2.54mm) 
+      (datasheet ~) 
+      (libsource 
+        (lib Switch) 
+        (part SW_DIP_x04) 
+        (description "4x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol")) 
+      (sheetpath 
+        (names /) 
+        (tstamps /)) 
+      (tstamp 6268AA4C))) 
+  (libparts 
+    (libpart 
+      (lib Connector) 
+      (part Conn_01x02_Male) 
+      (description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)") 
+      (docs ~) 
+      (footprints 
+        (fp Connector*:*_1x??_*)) 
+      (fields 
+        (field 
+          (name Reference) J) 
+        (field 
+          (name Value) Conn_01x02_Male)) 
+      (pins 
+        (pin 
+          (num 1) 
+          (name Pin_1) 
+          (type passive)) 
+        (pin 
+          (num 2) 
+          (name Pin_2) 
+          (type passive)))) 
+    (libpart 
+      (lib Connector) 
+      (part Conn_01x04_Male) 
+      (description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)") 
+      (docs ~) 
+      (footprints 
+        (fp Connector*:*_1x??_*)) 
+      (fields 
+        (field 
+          (name Reference) J) 
+        (field 
+          (name Value) Conn_01x04_Male)) 
+      (pins 
+        (pin 
+          (num 1) 
+          (name Pin_1) 
+          (type passive)) 
+        (pin 
+          (num 2) 
+          (name Pin_2) 
+          (type passive)) 
+        (pin 
+          (num 3) 
+          (name Pin_3) 
+          (type passive)) 
+        (pin 
+          (num 4) 
+          (name Pin_4) 
+          (type passive)))) 
+    (libpart 
+      (lib Connector) 
+      (part Conn_01x05_Male) 
+      (description "Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)") 
+      (docs ~) 
+      (footprints 
+        (fp Connector*:*_1x??_*)) 
+      (fields 
+        (field 
+          (name Reference) J) 
+        (field 
+          (name Value) Conn_01x05_Male)) 
+      (pins 
+        (pin 
+          (num 1) 
+          (name Pin_1) 
+          (type passive)) 
+        (pin 
+          (num 2) 
+          (name Pin_2) 
+          (type passive)) 
+        (pin 
+          (num 3) 
+          (name Pin_3) 
+          (type passive)) 
+        (pin 
+          (num 4) 
+          (name Pin_4) 
+          (type passive)) 
+        (pin 
+          (num 5) 
+          (name Pin_5) 
+          (type passive)))) 
+    (libpart 
+      (lib Connector) 
+      (part Screw_Terminal_01x02) 
+      (description "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)") 
+      (docs ~) 
+      (footprints 
+        (fp TerminalBlock*:*)) 
+      (fields 
+        (field 
+          (name Reference) J) 
+        (field 
+          (name Value) Screw_Terminal_01x02)) 
+      (pins 
+        (pin 
+          (num 1) 
+          (name Pin_1) 
+          (type passive)) 
+        (pin 
+          (num 2) 
+          (name Pin_2) 
+          (type passive)))) 
+    (libpart 
+      (lib Device) 
+      (part Buzzer) 
+      (description "Buzzer, polarized") 
+      (docs ~) 
+      (footprints 
+        (fp *Buzzer*)) 
+      (fields 
+        (field 
+          (name Reference) BZ) 
+        (field 
+          (name Value) Buzzer)) 
+      (pins 
+        (pin 
+          (num 1) 
+          (name -) 
+          (type passive)) 
+        (pin 
+          (num 2) 
+          (name +) 
+          (type passive)))) 
+    (libpart 
+      (lib Device) 
+      (part Fuse) 
+      (description Fuse) 
+      (docs ~) 
+      (footprints 
+        (fp *Fuse*)) 
+      (fields 
+        (field 
+          (name Reference) F) 
+        (field 
+          (name Value) Fuse)) 
+      (pins 
+        (pin 
+          (num 1) 
+          (name ~) 
+          (type passive)) 
+        (pin 
+          (num 2) 
+          (name ~) 
+          (type passive)))) 
+    (libpart 
+      (lib Device) 
+      (part LED) 
+      (description "Light emitting diode") 
+      (docs ~) 
+      (footprints 
+        (fp LED*) 
+        (fp LED_SMD:*) 
+        (fp LED_THT:*)) 
+      (fields 
+        (field 
+          (name Reference) D) 
+        (field 
+          (name Value) LED)) 
+      (pins 
+        (pin 
+          (num 1) 
+          (name K) 
+          (type passive)) 
+        (pin 
+          (num 2) 
+          (name A) 
+          (type passive)))) 
+    (libpart 
+      (lib Device) 
+      (part R) 
+      (description Resistor) 
+      (docs ~) 
+      (footprints 
+        (fp R_*)) 
+      (fields 
+        (field 
+          (name Reference) R) 
+        (field 
+          (name Value) R)) 
+      (pins 
+        (pin 
+          (num 1) 
+          (name ~) 
+          (type passive)) 
+        (pin 
+          (num 2) 
+          (name ~) 
+          (type passive)))) 
+    (libpart 
+      (lib Switch) 
+      (part SW_DIP_x01) 
+      (description "1x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol") 
+      (docs ~) 
+      (footprints 
+        (fp SW?DIP?x1*)) 
+      (fields 
+        (field 
+          (name Reference) SW) 
+        (field 
+          (name Value) SW_DIP_x01)) 
+      (pins 
+        (pin 
+          (num 1) 
+          (name ~) 
+          (type passive)) 
+        (pin 
+          (num 2) 
+          (name ~) 
+          (type passive)))) 
+    (libpart 
+      (lib Switch) 
+      (part SW_DIP_x04) 
+      (description "4x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol") 
+      (docs ~) 
+      (footprints 
+        (fp SW?DIP?x4*)) 
+      (fields 
+        (field 
+          (name Reference) SW) 
+        (field 
+          (name Value) SW_DIP_x04)) 
+      (pins 
+        (pin 
+          (num 1) 
+          (name ~) 
+          (type passive)) 
+        (pin 
+          (num 2) 
+          (name ~) 
+          (type passive)) 
+        (pin 
+          (num 3) 
+          (name ~) 
+          (type passive)) 
+        (pin 
+          (num 4) 
+          (name ~) 
+          (type passive)) 
+        (pin 
+          (num 5) 
+          (name ~) 
+          (type passive)) 
+        (pin 
+          (num 6) 
+          (name ~) 
+          (type passive)) 
+        (pin 
+          (num 7) 
+          (name ~) 
+          (type passive)) 
+        (pin 
+          (num 8) 
+          (name ~) 
+          (type passive)))) 
+    (libpart 
+      (lib Switch) 
+      (part SW_Push) 
+      (description "Push button switch, generic, two pins") 
+      (docs ~) 
+      (fields 
+        (field 
+          (name Reference) SW) 
+        (field 
+          (name Value) SW_Push)) 
+      (pins 
+        (pin 
+          (num 1) 
+          (name 1) 
+          (type passive)) 
+        (pin 
+          (num 2) 
+          (name 2) 
+          (type passive))))) 
+  (libraries 
+    (library 
+      (logical Connector) 
+      (uri D:\Programme\KiCad\share\kicad\library/Connector.lib)) 
+    (library 
+      (logical Device) 
+      (uri D:\Programme\KiCad\share\kicad\library/Device.lib)) 
+    (library 
+      (logical Switch) 
+      (uri D:\Programme\KiCad\share\kicad\library/Switch.lib))) 
+  (nets 
+    (net 
+      (code 1) 
+      (name "Net-(J5-Pad1)") 
+      (node 
+        (ref J5) 
+        (pin 1)) 
+      (node 
+        (ref SW3) 
+        (pin 8))) 
+    (net 
+      (code 2) 
+      (name "Net-(J8-Pad1)") 
+      (node 
+        (ref SW3) 
+        (pin 5)) 
+      (node 
+        (ref J8) 
+        (pin 1))) 
+    (net 
+      (code 3) 
+      (name "Net-(J7-Pad1)") 
+      (node 
+        (ref J7) 
+        (pin 1)) 
+      (node 
+        (ref SW3) 
+        (pin 7))) 
+    (net 
+      (code 4) 
+      (name +24V) 
+      (node 
+        (ref SW2) 
+        (pin 2)) 
+      (node 
+        (ref J4) 
+        (pin 1)) 
+      (node 
+        (ref SW3) 
+        (pin 2)) 
+      (node 
+        (ref SW3) 
+        (pin 1))) 
+    (net 
+      (code 5) 
+      (name "Net-(J6-Pad1)") 
+      (node 
+        (ref J6) 
+        (pin 1)) 
+      (node 
+        (ref SW3) 
+        (pin 6))) 
+    (net 
+      (code 6) 
+      (name +12V) 
+      (node 
+        (ref J4) 
+        (pin 4)) 
+      (node 
+        (ref SW3) 
+        (pin 4)) 
+      (node 
+        (ref SW3) 
+        (pin 3))) 
+    (net 
+      (code 7) 
+      (name "Net-(J1-Pad1)") 
+      (node 
+        (ref J1) 
+        (pin 1)) 
+      (node 
+        (ref J2) 
+        (pin 5))) 
+    (net 
+      (code 8) 
+      (name "Net-(D1-Pad2)") 
+      (node 
+        (ref J1) 
+        (pin 2)) 
+      (node 
+        (ref D1) 
+        (pin 2))) 
+    (net 
+      (code 9) 
+      (name "Net-(J2-Pad3)") 
+      (node 
+        (ref J2) 
+        (pin 3))) 
+    (net 
+      (code 10) 
+      (name GND) 
+      (node 
+        (ref J4) 
+        (pin 3)) 
+      (node 
+        (ref SW1) 
+        (pin 2)) 
+      (node 
+        (ref BZ1) 
+        (pin 2)) 
+      (node 
+        (ref R1) 
+        (pin 2)) 
+      (node 
+        (ref J5) 
+        (pin 2)) 
+      (node 
+        (ref J2) 
+        (pin 1)) 
+      (node 
+        (ref J4) 
+        (pin 2)) 
+      (node 
+        (ref J3) 
+        (pin 1)) 
+      (node 
+        (ref J8) 
+        (pin 2)) 
+      (node 
+        (ref J6) 
+        (pin 2)) 
+      (node 
+        (ref J7) 
+        (pin 2))) 
+    (net 
+      (code 11) 
+      (name "Net-(BZ1-Pad1)") 
+      (node 
+        (ref J2) 
+        (pin 4)) 
+      (node 
+        (ref BZ1) 
+        (pin 1))) 
+    (net 
+      (code 12) 
+      (name "Net-(D1-Pad1)") 
+      (node 
+        (ref R1) 
+        (pin 1)) 
+      (node 
+        (ref D1) 
+        (pin 1))) 
+    (net 
+      (code 13) 
+      (name "Net-(J2-Pad2)") 
+      (node 
+        (ref SW1) 
+        (pin 1)) 
+      (node 
+        (ref J2) 
+        (pin 2))) 
+    (net 
+      (code 14) 
+      (name "Net-(F1-Pad2)") 
+      (node 
+        (ref F1) 
+        (pin 2)) 
+      (node 
+        (ref SW2) 
+        (pin 1))) 
+    (net 
+      (code 15) 
+      (name "Net-(F1-Pad1)") 
+      (node 
+        (ref J3) 
+        (pin 2)) 
+      (node 
+        (ref F1) 
+        (pin 1)))))

@@ -54,6 +54,14 @@ accessible in the apposite OctoPrint section in setting:
 ![settings2](docs/settings2.png)
 ![settings3](docs/settings3.png)
 
+## PCB
+
+There are KiCad PCB files available in case you want to make your own PCB.
+A bill of materials (BOM) can be found in the according folder.
+
+![pcb1](docs/pcb1.png)
+![pcb2](docs/pcb2.png)
+
 ## FAQ
 
 #### _What resistor does it need to use?_ 
