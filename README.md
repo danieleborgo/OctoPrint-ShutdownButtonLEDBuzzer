@@ -10,6 +10,25 @@ By default, this plugin shuts down the Raspberry without
 checking of there are ongoing jobs. In settings, there is
 a flag to disable the button when printing.
 
+## Compatibility
+
+The plugin automatically selects the correct GPIO driver based on
+the OS version:
+
+- **periphery** — for Raspberry Pi OS **Bookworm (2023) and newer**,
+  including Raspberry Pi 5. Uses the modern character device interface
+  (`/dev/gpiochip0`, or `/dev/gpiochip4` on Raspberry Pi 5).
+- **gpiozero** — for Raspberry Pi OS **Bullseye (2021) and older**.
+  Requires the legacy sysfs interface.
+
+Auto-detection is the default and works in most cases. If needed,
+the driver can be overridden in the Advanced Settings section.
+
+`python-periphery` is a required dependency. `gpiozero` is optional
+and only needed on older systems:
+
+    pip install "OctoPrint-ShutdownButtonLEDBuzzer[gpiozero]"
+
 ## Notes
 
 To shut down the Raspberry, it uses the command configured in
@@ -17,6 +36,10 @@ OctoPrint settings.
 
 This plugin supports both active and passive buzzers. By default,
 it assumes to have an active one.
+
+The internal pull-up resistor for the button is applied automatically
+on kernels ≥ 5.10. On older kernels an external pull-up resistor
+on the button pin is required.
 
 ## Setup
 

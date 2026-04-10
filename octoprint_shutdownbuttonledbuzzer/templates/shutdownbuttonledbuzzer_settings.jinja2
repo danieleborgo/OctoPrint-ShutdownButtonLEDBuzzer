@@ -3,6 +3,10 @@
         <h3>ShutdownButtonLEDBuzzer</h3>
     </div>
 
+    <div class="alert alert-error" data-bind="visible: has_pin_conflict" style="margin-bottom: 10px;">
+        Two or more enabled components share the same pin. Resolve the conflict before saving.
+    </div>
+
     <div class="control-group">
         This plugin uses <B>BCM</B> pins. <BR>
         To know more data about pins check
@@ -33,12 +37,21 @@
     <div class="control-group">
         <label class="control-label">{{ _('Button pin') }}</label>
         <div class="controls">
-            <label>
-                <input type="number" class="input-block-level center-input"
-                       data-bind="value: shutdownButtonLEDBuzzer.button_pin,
-                                  enable: shutdownButtonLEDBuzzer.is_button_en"
-                       style="text-align: center">
-            </label>
+            <!-- ko ifnot: shutdownButtonLEDBuzzer.unlock_pin_range() -->
+            <select data-bind="options: pin_options,
+                               optionsText: 'text',
+                               optionsValue: 'value',
+                               value: shutdownButtonLEDBuzzer.button_pin,
+                               enable: shutdownButtonLEDBuzzer.is_button_en,
+                               optionsAfterRender: pin_after_render">
+            </select>
+            <!-- /ko -->
+            <!-- ko if: shutdownButtonLEDBuzzer.unlock_pin_range() -->
+            <input type="number" class="input-block-level center-input"
+                   data-bind="value: shutdownButtonLEDBuzzer.button_pin,
+                              enable: shutdownButtonLEDBuzzer.is_button_en"
+                   style="text-align: center">
+            <!-- /ko -->
         </div>
     </div>
 
@@ -75,12 +88,21 @@
     <div class="control-group">
         <label class="control-label">{{ _('LED pin') }}</label>
         <div class="controls">
-            <label>
-                <input type="number" class="input-block-level center-input"
-                       data-bind="value: shutdownButtonLEDBuzzer.led_pin,
-                                  enable: shutdownButtonLEDBuzzer.is_led_en"
-                       style="text-align: center">
-            </label>
+            <!-- ko ifnot: shutdownButtonLEDBuzzer.unlock_pin_range() -->
+            <select data-bind="options: pin_options,
+                               optionsText: 'text',
+                               optionsValue: 'value',
+                               value: shutdownButtonLEDBuzzer.led_pin,
+                               enable: shutdownButtonLEDBuzzer.is_led_en,
+                               optionsAfterRender: pin_after_render">
+            </select>
+            <!-- /ko -->
+            <!-- ko if: shutdownButtonLEDBuzzer.unlock_pin_range() -->
+            <input type="number" class="input-block-level center-input"
+                   data-bind="value: shutdownButtonLEDBuzzer.led_pin,
+                              enable: shutdownButtonLEDBuzzer.is_led_en"
+                   style="text-align: center">
+            <!-- /ko -->
         </div>
     </div>
 
@@ -108,12 +130,20 @@
         <div class="controls">
             <label class="text">
                 <select style="text-align: center"
-                        data-bind="enable: shutdownButtonLEDBuzzer.is_buzzer_en,
+                        data-bind="enable: shutdownButtonLEDBuzzer.is_buzzer_en() && library_supports_pwm(),
                                    value: buzzer_type">
                     <option>Active</option>
                     <option>Passive</option>
                 </select>
             </label>
+        </div>
+    </div>
+
+    <div class="control-group" data-bind="visible: shutdownButtonLEDBuzzer.is_buzzer_en() && !library_supports_pwm()">
+        <div class="controls">
+            <span class="label label-info">
+                Selected library does not support PWM. Passive buzzer is unavailable.
+            </span>
         </div>
     </div>
 
@@ -124,7 +154,8 @@
                 <input type="number" min="35" max="107" class="input-block-level center-input"
                        data-bind="value: shutdownButtonLEDBuzzer.active_note,
                                   enable: shutdownButtonLEDBuzzer.is_buzzer_en() &&
-                                          !shutdownButtonLEDBuzzer.is_buzzer_active()"
+                                          !shutdownButtonLEDBuzzer.is_buzzer_active() &&
+                                          library_supports_pwm()"
                        style="text-align: center">
             </label>
         </div>
@@ -133,12 +164,21 @@
     <div class="control-group">
         <label class="control-label">{{ _('Buzzer pin') }}</label>
         <div class="controls">
-            <label>
-                <input type="number" class="input-block-level center-input"
-                       data-bind="value: shutdownButtonLEDBuzzer.buzzer_pin,
-                                  enable: shutdownButtonLEDBuzzer.is_buzzer_en"
-                       style="text-align: center">
-            </label>
+            <!-- ko ifnot: shutdownButtonLEDBuzzer.unlock_pin_range() -->
+            <select data-bind="options: pin_options,
+                               optionsText: 'text',
+                               optionsValue: 'value',
+                               value: shutdownButtonLEDBuzzer.buzzer_pin,
+                               enable: shutdownButtonLEDBuzzer.is_buzzer_en,
+                               optionsAfterRender: pin_after_render">
+            </select>
+            <!-- /ko -->
+            <!-- ko if: shutdownButtonLEDBuzzer.unlock_pin_range() -->
+            <input type="number" class="input-block-level center-input"
+                   data-bind="value: shutdownButtonLEDBuzzer.buzzer_pin,
+                              enable: shutdownButtonLEDBuzzer.is_buzzer_en"
+                   style="text-align: center">
+            <!-- /ko -->
         </div>
     </div>
 
@@ -224,6 +264,100 @@
             <input type="button" class="btn btn-primary" data-bind="click: refresh" value="Refresh">
             <label class="update-label">Last on <span data-bind="text: updated_hour">-</span></label>
         </div>
+    </div>
+
+
+    <div class="control-group-header" style="cursor: pointer; user-select: none;"
+         data-bind="click: function(){ advanced_expanded(!advanced_expanded()) }">
+        <h4>
+            <span data-bind="text: advanced_expanded() ? '▼' : '▶'"></span>
+            Advanced Settings
+        </h4>
+    </div>
+
+    <div data-bind="visible: advanced_expanded">
+
+        <div class="control-group">
+            <div class="alert alert-warning" style="margin-bottom: 0;">
+                Only change these settings if the plugin is not working correctly.
+                Choosing the wrong option will prevent the button, LED and buzzer from working.
+            </div>
+        </div>
+
+        <div class="control-group-header">
+            <h4>Pin Range</h4>
+        </div>
+
+        <div class="control-group">
+            <!-- ko if: is_raspberry_pi() === true -->
+            {{ _("Detected board: ") }}<b data-bind="text: board_model"></b>.
+            {{ _("Pin range is restricted to BCM 2–27 (standard 40-pin header).") }}
+            <!-- /ko -->
+            <!-- ko if: is_raspberry_pi() === false -->
+            <!-- ko if: board_model() -->
+            {{ _("Detected board: ") }}<b data-bind="text: board_model"></b>.
+            <!-- /ko -->
+            <!-- ko ifnot: board_model() -->
+            {{ _("Non-Raspberry Pi board detected.") }}
+            <!-- /ko -->
+            {{ _("Pin range is unlocked by default since BCM 2–27 may not apply to your hardware.") }}
+            <!-- /ko -->
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox"
+                           data-bind="checked: shutdownButtonLEDBuzzer.unlock_pin_range">
+                    {{ _("Unlock pin range (required for Compute Modules or non-Raspberry Pi hardware)") }}
+                </label>
+            </div>
+        </div>
+
+        <div class="control-group-header">
+            <h4>GPIO Driver</h4>
+        </div>
+
+        <div class="control-group">
+            The plugin needs a driver to communicate with the Raspberry Pi's physical pins.
+            Different versions of Raspberry Pi OS require a different driver.<BR><BR>
+            <b>Auto</b> is recommended: the plugin reads your OS version and picks the right
+            driver automatically. You only need to change this if auto detection fails.<BR><BR>
+            If you need to pick manually:
+            <ul>
+                <li><b>periphery</b> — for Raspberry Pi OS <b>Bookworm (2023)</b> or newer</li>
+                <li><b>gpiozero</b> — for Raspberry Pi OS <b>Bullseye (2021)</b> or older</li>
+            </ul>
+            <!-- ko if: os_name() -->
+            Your system is running: <b data-bind="text: os_name"></b>.<BR>
+            <!-- /ko -->
+            To find your OS version, run <code>cat /etc/os-release</code> on the Raspberry Pi
+            and look for <code>VERSION_CODENAME</code>.
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">{{ _('Driver') }}</label>
+            <div class="controls">
+                <select data-bind="value: shutdownButtonLEDBuzzer.gpio_library"
+                        style="display: inline-block; width: auto; margin-right: 6px;">
+                    <option value="auto">Auto (recommended)</option>
+                    <option value="periphery">periphery (Bookworm and newer)</option>
+                    <option value="gpiozero">gpiozero (Bullseye and older)</option>
+                </select>
+                <button class="btn"
+                        data-bind="click: on_check_click,
+                                   disable: checking() || shutdownButtonLEDBuzzer.gpio_library() === 'auto'">
+                    <span data-bind="visible: !checking()">Check</span>
+                    <span data-bind="visible: checking()">Checking...</span>
+                </button>
+                <div data-bind="visible: check_message().length > 0,
+                                text: check_message,
+                                css: { 'text-success': check_success() === true,
+                                       'text-error': check_success() === false }"
+                     style="margin-top: 4px;"></div>
+            </div>
+        </div>
+
     </div>
 
 </form>

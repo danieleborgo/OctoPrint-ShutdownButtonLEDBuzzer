@@ -114,7 +114,8 @@ seconds.
 
 ## Note
 
-This plugin uses an **active** buzzer.
+This plugin supports both **active** and **passive** buzzers,
+selectable from the settings panel. By default it assumes an active one.
 
 ## Setup
 
